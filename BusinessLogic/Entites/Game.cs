@@ -30,5 +30,6 @@ namespace BusinessLogic.Entites
 
         [Url]
         public string Logotip { get; set; }
+        public ICollection<User>? Users { get; set; }
     }
 }

@@ -34,5 +34,6 @@ namespace DataAccess
 
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Ganr> Ganrs { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }
