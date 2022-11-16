@@ -16,7 +16,7 @@ namespace BusinessLogic.Entites
 
     public class User : IdentityUser
     {
-        public TypesUsers Users { get; set; }
+        public TypesUsers TypeUsers { get; set; }
         public ICollection<Game>? Games { get; set; }
     }
 }
