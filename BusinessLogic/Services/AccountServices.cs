@@ -42,11 +42,11 @@ namespace BusinessLogic.Services
                 throw new HttpException(errors, HttpStatusCode.BadRequest);
             }
         }
-        public async Task Login(string username, string password)
+        public async Task Login(LoginDTO dto)
         {
-            var user = await userManager.FindByNameAsync(username);
+            var user = await userManager.FindByNameAsync(dto.Username);
 
-            if (user == null || !await userManager.CheckPasswordAsync(user, password))
+            if (user == null || !await userManager.CheckPasswordAsync(user, dto.Password))
             {
                 throw new HttpException(ErrorMessages.InvalidCredentials, HttpStatusCode.BadRequest);
             }

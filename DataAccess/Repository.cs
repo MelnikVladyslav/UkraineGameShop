@@ -63,6 +63,11 @@ namespace DataAccess
             return dbSet.Find(id);
         }
 
+        public virtual TEntity GetByName(object name)
+        {
+            return dbSet.Find(name);
+        }
+
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);

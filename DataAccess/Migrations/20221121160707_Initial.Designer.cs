@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    [Migration("20221115140330_AddOrders")]
-    partial class AddOrders
+    [Migration("20221121160707_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,8 +150,10 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ClientId")
-                        .IsRequired()
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
@@ -162,24 +164,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientId1");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("GameUser", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GamesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("GameUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -390,8 +377,13 @@ namespace DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int>("Users")
+                    b.Property<int?>("GameId")
                         .HasColumnType("int");
+
+                    b.Property<int>("TypeUsers")
+                        .HasColumnType("int");
+
+                    b.HasIndex("GameId");
 
                     b.HasDiscriminator().HasValue("User");
                 });
@@ -414,27 +406,10 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("BusinessLogic.Entites.Order", b =>
                 {
                     b.HasOne("BusinessLogic.Entites.User", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId1");
 
                     b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("GameUser", b =>
-                {
-                    b.HasOne("BusinessLogic.Entites.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BusinessLogic.Entites.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -488,6 +463,18 @@ namespace DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BusinessLogic.Entites.User", b =>
+                {
+                    b.HasOne("BusinessLogic.Entites.Game", null)
+                        .WithMany("Users")
+                        .HasForeignKey("GameId");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entites.Game", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("BusinessLogic.Entites.Ganr", b =>
                 {
                     b.Navigation("Games");
@@ -496,6 +483,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("BusinessLogic.Entites.Order", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BusinessLogic.Entites.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

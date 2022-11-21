@@ -10,7 +10,7 @@ namespace BusinessLogic.Interfaice
     public interface IAccountService
     {
         Task Register(RegisterDTO data);
-        Task Login(string username, string password);
+        Task Login(LoginDTO dto);
         Task Logout();
     }
 }

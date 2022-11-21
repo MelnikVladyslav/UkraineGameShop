@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using BusinessLogic.Entites;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ string connectionString = builder.Configuration.GetConnectionString("LocalStore"
 builder.Services.AddControllers();
 
 
-builder.Services.AddDbContext<GameStoreDbContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<GameStoreDbContext>(x => x.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GameStoreDbContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

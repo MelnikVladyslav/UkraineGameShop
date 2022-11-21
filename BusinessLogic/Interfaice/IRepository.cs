@@ -20,6 +20,8 @@ namespace BusinessLogic.Interfaice
 
         TEntity GetByID(object id);
 
+        TEntity GetByName(object name);
+
         void Insert(TEntity entity);
 
         void Delete(object id);
