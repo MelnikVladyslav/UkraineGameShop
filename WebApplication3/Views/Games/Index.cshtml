@@ -1,0 +1,24 @@
+﻿@model IEnumerable<BusinessLogic.Entites.Game>;
+
+<seciton class="text-center">
+    <h2>Games for ukranians</h2>
+    <p>From $41.62/mo. for 24 mo. or $999 before trade‑in1</p>
+</seciton>
+<hr />
+<div>
+    <h3 class="text-center my-4">Game Models</h3>
+    <div class="list-group">
+        @foreach (var phone in Model)
+        {
+            <a asp-action="Details" asp-route-id="@phone.Id" class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@phone.Name</h5>
+                    <small>@phone.Price$</small>
+                </div>
+                <p class="mb-1">@phone.Ganr?.Name</p>
+                <small>@phone.Description</small>
+            </a>
+        }
+    </div>
+    <p class="text-center mt-2">Count: @Model.Count()</p>
+</div>

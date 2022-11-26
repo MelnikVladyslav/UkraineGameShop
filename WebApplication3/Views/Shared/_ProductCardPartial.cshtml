@@ -1,0 +1,14 @@
+﻿@model BusinessLogic.Entites.Game;
+
+<div class="col">
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <h6 class="card-text">@Model.Ganr?.Name</h6>
+        </div>
+        <div class="card-footer">
+            <p class="card-text">@Model.Price</p>
+            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Details</a>
+        </div>
+    </div>
+</div>

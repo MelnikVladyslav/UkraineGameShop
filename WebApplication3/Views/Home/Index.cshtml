@@ -1,0 +1,11 @@
+﻿@model IEnumerable<BusinessLogic.Entites.Game>;
+
+<h1 class="display-4 text-center">Popular Games</h1>
+<hr />
+
+<div class="row row-cols-4 g-3">
+    @foreach (var i in Model)
+    {
+        <partial name="_ProductHomePartial" model="@i" />
+    }
+</div>

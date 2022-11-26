@@ -1,0 +1,38 @@
+﻿@model BusinessLogic.Entites.Game;
+
+<secion class="text-center">
+    <h1>@Model.Name</h1>
+    <div class="text-center my-2">
+        <img width="300" src="@Model.Logotip" class="rounded" alt="iPhone image">
+    </div>
+    <p>From @Model.Price$ before trade-in*</p>
+    <div>
+        @if (ViewBag.IsInCart)
+        {
+            <a asp-controller="Cart" asp-action="Remove" asp-route-productId="@Model.Id" class="btn btn-secondary my-3">
+                <i class="bi bi-bag-x"></i> Remove from Cart
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" class="btn btn-primary my-3">
+                <i class="bi bi-bag-plus"></i> Buy
+            </a>
+        }
+    </div>
+    <div>
+        <a href="#" class="link-secondary">Watch the film</a>
+        <a href="#" class="link-secondary">Watch the event</a>
+    </div>
+    <div>
+        <a href="@ViewBag.ReturnUrl" class="link-secondary">Go back</a>
+    </div>
+</secion>
+
+<div class="mt-3 fs-6">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            @Model.Description
+        </li>
+    </ul>
+</div>
