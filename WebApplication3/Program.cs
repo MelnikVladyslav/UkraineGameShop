@@ -16,6 +16,7 @@ builder.Services.AddDbContext<GameStoreDbContext>(x =>
         x.UseSqlServer(builder.Configuration.GetConnectionString("LocalStore")));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GameStoreDbContext>();
 
 // session configurations

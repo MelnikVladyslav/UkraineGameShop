@@ -1,14 +1,17 @@
 ﻿using BusinessLogic.Entites;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_apple_store.Helpers;
+using System.Data;
 using System.Numerics;
 
 namespace MVC_apple_store.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class GamesController : Controller
     {
         private readonly GameStoreDbContext context;
@@ -18,11 +21,21 @@ namespace MVC_apple_store.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public IActionResult Index(string searchStringName, string searchStringGanr)
         {
-            var phones = context.Games.Include(p => p.Ganr).ToList(); 
+            var games = context.Games.Include(p => p.Ganr).ToList();
 
-            return View(phones);
+            if (!String.IsNullOrEmpty(searchStringName))
+            {
+                games = games.Where(g => g.Name.Contains(searchStringName)).ToList();
+            }
+            else if(!String.IsNullOrEmpty(searchStringGanr))
+            {
+                games = games.Where(g => g.Ganr.Name.Contains(searchStringGanr)).ToList();
+            }
+
+            return View(games);
         }
 
         public IActionResult Manage()
@@ -32,6 +45,7 @@ namespace MVC_apple_store.Controllers
             return View(phones); 
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             if (id < 0) return BadRequest();

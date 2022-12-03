@@ -13,7 +13,9 @@ namespace BusinessLogic.Entites
         Strategy = 1,
         Shuter,
         Arcady,
-        Survival
+        Survival,
+        VisualNovel,
+        BattleRoyale
     }
     public class Ganr
     {

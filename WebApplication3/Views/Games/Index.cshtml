@@ -7,6 +7,19 @@
 <hr />
 <div>
     <h3 class="text-center my-4">Game Models</h3>
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchStringName")
+            <input type="submit" value="Search" />
+        </p>
+        <p>
+            Find by ganr: @Html.TextBox("SearchStringGanr")
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    
     <div class="list-group">
         @foreach (var phone in Model)
         {

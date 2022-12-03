@@ -14,6 +14,6 @@ namespace BusinessLogic.Entites
         public DateTime Date { get; set; }
         public string ClientId { get; set; }
         public User? Client { get; set; }
-        public IEnumerable<Game>? Products { get; set; }
+        public IEnumerable<Game> Products { get; set; }
     }
 }
